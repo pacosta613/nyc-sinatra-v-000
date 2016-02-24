@@ -1,17 +1,15 @@
 class FiguresController < ApplicationController
-
-  get '/figures' do 
-    @figure = Figure.all
+  
+  get '/figures' do
+    @figures = Figure.all
     erb :'/figures/index'
   end
 
   get '/figures/new' do
-    @landmarks = Landmark.all
-    @titles = Title.all 
     erb :'/figures/new'
   end
-  
-  post '/figures' do
+
+  post '/figures/new' do
     @figure = Figure.create(params[:figure])
     @figure.titles << Title.create(params[:title])
     @figure.landmarks << Landmark.create(params[:landmark])
@@ -19,16 +17,16 @@ class FiguresController < ApplicationController
     redirect to "/figures/#{@figure.id}"
   end
 
-  get '/figures/:id' do 
+  get '/figures/:id' do
     @figure = Figure.find_by_id(params[:id])
     erb :'/figures/show'
   end
 
-  get '/figures/:id/:edit' do 
+  get '/figures/:id/edit' do
     @figure = Figure.find_by_id(params[:id])
-    erb :'/figres/edit'
+    erb :'/figures/edit'
   end
-  
+
   post '/figures/:id' do
     @figure = Figure.find_by_id(params[:id])
     @figure.name = params[:figure][:name]
@@ -39,4 +37,5 @@ class FiguresController < ApplicationController
     @figure.save
     redirect to "/figures/#{@figure.id}"
   end
+
 end

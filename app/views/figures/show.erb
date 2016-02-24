@@ -1,1 +1,18 @@
-<h1>Figure: <%= @figure.name %></h1>
+<h2>Figure: </h2>
+  <p><a href='/figures/<%= @figure.id %>'><%= "#{@figure.name}" %></a></p>
+  
+<h2>Titles: </h2>
+<% @figure.titles.uniq.each do |title| %>
+  <p><%= "#{title.name}" %></p>
+<% end %>
+
+<h2>Landmarks: </h2>
+<% @figure.landmarks.uniq.each do |landmark| %>
+  <p><%= "#{landmark.name}" %></p>
+<% end %><br>
+
+<form action=<%="/figures/#{@figure.id}/edit"%> method="GET">
+  <input type="submit" value="edit">
+</form><br>
+
+<a href='/figures'>Click To See All Figures</a>

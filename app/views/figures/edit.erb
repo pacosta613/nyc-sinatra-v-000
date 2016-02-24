@@ -1,38 +1,38 @@
-<h1>Edit Figure</h1>
+<h2>Edit Figure</h2>
+
 <p><%= @figure.name %></p>
-<% @figure.titles.each do |title| %>
+<% @figure.titles.uniq.each do |title| %>
   <p><%= title.name %></p>
 <% end %>
-<% @figure.landmarks.each do |landmark| %>
+<% @figure.landmarks.uniq.each do |landmark| %>
   <p><%= landmark.name %></p>
 <% end %>
+<h3>EDIT BELOW</h3>
 
-<form action="/figures/<%="#{@figure.id}"%>" method="post">
+<form action="/figures/<%="#{@figure.id}"%>" method="POST">
 
-  <label>Edit Figure:</label>
-  <input id="figure_name" type="text" name="figure[name]">
-  <br><br>
+  <label>Edit Name Of Figure: </label>
+  <input id="figure_name" type="text" name="figure[name]"><br><br>
 
-  <label>Titles:</label>
-  <% @titles.each do |title| %>
+  
+  <label>Titles: </label>
+  <% Title.all.uniq.each do |title| %>
     <%= title.name %>
     <input id="title_<%= title.id %>" type="checkbox" name="figure[title_ids][]" value="<%= title.id %>">
-  <% end %>
-  <br></br>
+  <% end %><br>
+  <p>Or Choose a new title</p>
 
-  <label>New Title:</label>
-  <input id="new_title" type="text" name="figure[title]">
-  <br><br>
+  <label>New Title: </label>
+  <input id="new_title" type="text" name="figure[title]"><br><br>
 
-  <label>Landmarks:</label>
-  <% @landmarks.each do |landmark| %>
+  <label>Landmarks: </label>
+  <% Landmark.all.uniq.each do |landmark| %>
     <%= landmark.name %>
     <input id="landmark_<%= landmark.id %>" type="checkbox" name="figure[landmark_ids][]" value="<%= landmark.id %>">
-  <% end %>
-  <br><br>
+  <% end %><br><br>
 
-  <label>New Landmark:</label>
+  <label>New Landmark: </label>
   <input id="new_landmark" type="text" name="figure[landmark]"><br><br>
 
-  <input type="submit" value="Save">
+  <input type="submit" value="Edit Figure">
 </form>
